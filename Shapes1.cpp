@@ -17,7 +17,6 @@ void checkShape(vector<string>&, ofstream&);
 void calcShape(vector<string>&, ofstream&);
 
 const double PI = 3.14159;
-ofstream fout;
 
 int main(){
   cout << "Programmer: Dhanush Patel\n";
@@ -178,17 +177,13 @@ void checkShape(vector<string>& lineWords, ofstream fout){
     calcShape(lineWords, fout);
   }
   else{
-    if(lineWords.at(0)=="EOF"){
-      //do nothing
-    }
-    else{
+    if(lineWords.at(0)!="EOF"){
       cout << lineWords.at(0) << " invalid shape" << endl;
     }
   }
 }
 
-vector<string> parseString(string str)
-{
+vector<string> parseString(string str){
   stringstream s(str);
   istream_iterator<string> begin(s), end;
   return vector<string>(begin, end);
