@@ -13,19 +13,19 @@ using namespace std;
 #include <cstdlib>
 
 vector<string> parseString(string);
-void checkShape(vector<string>&);
-void calcShape(vector<string>&);
+void checkShape(vector<string>&, ofstream&);
+void calcShape(vector<string>&, ofstream&);
 
 const double PI = 3.14159;
 ofstream fout;
 
 int main(){
-  // programmer's identification
   cout << "Programmer: Dhanush Patel\n";
   cout << "Programmer's ID: 1553428\n";
   cout << "File: " << __FILE__ << endl;
 
   ifstream fin;
+  ofstream fout;
   fin.open("Shapes.input.txt");
   fout.open("Shapes.output.txt");
 
@@ -35,14 +35,14 @@ int main(){
     getline(fin, curLine);
     vector<string> lineElems = parseString(curLine);
     if(lineElems.size()!=0){
-      checkShape(lineElems);
+      checkShape(lineElems, fout);
     }
   }
   fin.close();
   fout.close();
 }
 
-void calcShape(vector<string>& lineWords){
+void calcShape(vector<string>& lineWords, ofstream fout){
   string shapeType = lineWords.at(0);
 
   if(shapeType == "SQUARE"){
@@ -87,7 +87,7 @@ void calcShape(vector<string>& lineWords){
   }
   else if(shapeType == "TRIANGLE"){
     double side = lineWords.size() >= 2 ? atof(lineWords.at(1).c_str()) : 0;
-    double area = ( pow(3.0, 0.5) / 4.0) * pow(side, 2.0);
+    double area = (pow(3.0, 0.5) / 4.0) * pow(side, 2.0);
     double perim = side * 3.0;
     cout << "TRIANGLE side=" << side;
     fout << "TRIANGLE side=" << side;
@@ -115,7 +115,7 @@ void calcShape(vector<string>& lineWords){
     double length = lineWords.size() >= 2 ? atof(lineWords.at(1).c_str()) : 0;
     double width = lineWords.size() >= 3 ? atof(lineWords.at(2).c_str()) : 0;
     double height = lineWords.size() >= 4 ? atof(lineWords.at(3).c_str()) : 0;
-    double surfaceArea = 2.0 * ( (length * width) + (length * height) + (width * height) );
+    double surfaceArea = 2.0 * ((length * width) + (length * height) + (width * height));
     double volume = length * width * height;
     cout << "BOX length=" << length << " width=" << width << " height=" << height;
     fout << "BOX length=" << length << " width=" << width << " height=" << height;
@@ -129,7 +129,7 @@ void calcShape(vector<string>& lineWords){
   else if(shapeType == "CYLINDER"){
     double radius = lineWords.size() >= 2 ? atof(lineWords.at(1).c_str()) : 0;
     double height = lineWords.size() >= 3 ? atof(lineWords.at(2).c_str()) : 0;
-    double surfaceArea = ( 2.0 * ( PI * pow(radius, 2.0) ) ) + ( 2.0 * PI * radius * height );
+    double surfaceArea = (2.0 * (PI * pow(radius, 2.0))) + (2.0 * PI * radius * height);
     double volume = PI * pow(radius, 2.0) * height;
     cout << "CYLINDER radius=" << radius << " height=" << height;
     fout << "CYLINDER radius=" << radius << " height=" << height;
@@ -143,8 +143,8 @@ void calcShape(vector<string>& lineWords){
   else if(shapeType == "PRISM"){
     double side = lineWords.size() >= 2 ? atof(lineWords.at(1).c_str()) : 0;
     double height = lineWords.size() >= 3 ? atof(lineWords.at(2).c_str()) : 0;
-    double surfaceArea = ( 2.0 * ( ( pow(3.0, 0.5) / 4.0 ) * pow(side, 2.0) ) ) + ( 3.0 * (side * height ) );
-    double volume = ( ( pow(3.0, 0.5) / 4.0 ) * pow(side, 2.0) ) * height;
+    double surfaceArea = (2.0 * ((pow(3.0, 0.5) / 4.0) * pow(side, 2.0) ) ) + (3.0 * (side * height));
+    double volume = ((pow(3.0, 0.5) / 4.0) * pow(side, 2.0)) * height;
     cout << "PRISM side=" << side << " height=" << height;
     fout << "PRISM side=" << side << " height=" << height;
     cout.setf(ios::fixed);
@@ -164,7 +164,7 @@ void calcShape(vector<string>& lineWords){
   fout.precision(6);
 }
 
-void checkShape(vector<string>& lineWords){
+void checkShape(vector<string>& lineWords, ofstream fout){
   string validShapes[] = {"SQUARE", "RECTANGLE", "CIRCLE", "TRIANGLE", "CUBE", "BOX", "CYLINDER", "PRISM"};
   bool valShape = false;
 
@@ -175,7 +175,7 @@ void checkShape(vector<string>& lineWords){
   }
 
   if(valShape == true){
-    calcShape(lineWords);
+    calcShape(lineWords, fout);
   }
   else{
     if(lineWords.at(0)=="EOF"){
