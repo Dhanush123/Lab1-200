@@ -28,7 +28,6 @@ int main(){
   fin.open("Shapes.input.txt");
   fout.open("Shapes.output.txt");
 
-
   while(fin.good()){
     string curLine;
     getline(fin, curLine);
@@ -41,7 +40,7 @@ int main(){
   fout.close();
 }
 
-void calcShape(vector<string>& lineWords, ofstream fout){
+void calcShape(vector<string>& lineWords, ofstream& fout){
   string shapeType = lineWords.at(0);
 
   if(shapeType == "SQUARE"){
@@ -163,7 +162,7 @@ void calcShape(vector<string>& lineWords, ofstream fout){
   fout.precision(6);
 }
 
-void checkShape(vector<string>& lineWords, ofstream fout){
+void checkShape(vector<string>& lineWords, ofstream& fout){
   string validShapes[] = {"SQUARE", "RECTANGLE", "CIRCLE", "TRIANGLE", "CUBE", "BOX", "CYLINDER", "PRISM"};
   bool valShape = false;
 
